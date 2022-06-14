@@ -6,12 +6,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
 class Utils {
+  static void fieldFocusChange(
+      BuildContext context, FocusNode current, FocusNode nextFocus) {
+    current.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
   static toastMessage(String message) {
     Fluttertoast.showToast(
-      msg: message,
-      backgroundColor: Colors.black,
-      textColor: Colors.white,
-    );
+        msg: message, backgroundColor: Colors.black, textColor: Colors.white);
   }
 
   static flushBarErrorMessage(String message, BuildContext context) {
@@ -25,9 +28,10 @@ class Utils {
           Icons.error,
           color: Colors.white,
         ),
+        borderRadius: BorderRadius.circular(20),
 
-        flushbarPosition: FlushbarPosition.BOTTOM,
-        // margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        flushbarPosition: FlushbarPosition.TOP,
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         message: message,
         backgroundColor: Colors.red,
         // title: "sad",

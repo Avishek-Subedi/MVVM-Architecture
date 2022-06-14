@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learingin_architecture/utils/routes/routes_name.dart';
 import 'package:learingin_architecture/view/home_screen.dart';
-import 'package:learingin_architecture/view/login_screen.dart';
+import 'package:learingin_architecture/view/login_view.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
