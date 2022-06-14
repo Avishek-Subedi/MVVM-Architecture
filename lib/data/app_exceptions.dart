@@ -6,6 +6,7 @@ class AppExcetpiton implements Exception {
   AppExcetpiton(this._message, this._prefix);
 
   // @override
+  @override
   String toString() {
     return '$_prefix $_message';
   }
