@@ -5,14 +5,14 @@ import 'package:learingin_architecture/utils/utils.dart';
 import 'package:learingin_architecture/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpView extends StatefulWidget {
+  const SignUpView({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpViewState extends State<SignUpView> {
   ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -73,8 +73,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: height * .1),
             RoundButton(
-              title: "Login",
-              loading: authViewModel.loading,
+              title: "Sign Up",
+              loading: authViewModel.registerLoading,
               onPress: () {
                 if (_emailController.text.isEmpty) {
                   Utils.flushBarErrorMessage("Please enter email", context);
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     'email': _emailController.text.toString(),
                     'password': _passwordController.text.toString()
                   };
-                  authViewModel.loginApi(data, context);
+                  authViewModel.registerApi(data, context);
                   print("api hit");
                 }
               },
@@ -96,9 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: height * 0.02),
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, RoutesName.signUp);
+                Navigator.pushNamed(context, RoutesName.login);
               },
-              child: const Text("Dont't have an account?"),
+              child: const Text("Already  have an account?"),
             )
           ],
         ),
@@ -106,16 +106,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-// child: TextButton(
-//           onPressed: () {
-//             Utils.toastMessage("No internet connection");
-//             Utils.flushBarErrorMessage("No internet connection", context);
-
-//             Utils.snackBar("helloooo", context);
-
-//             // Navigator.pushNamed(context,
-//             //     RoutesName.home); // better way of navigating to next screen
-//           },
-//           child: const Text("Click Me"),
-//         ),
