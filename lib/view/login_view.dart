@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:learingin_architecture/resourses/components/round_button.dart';
 import 'package:learingin_architecture/utils/routes/routes_name.dart';
 import 'package:learingin_architecture/utils/utils.dart';
+import 'package:learingin_architecture/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -28,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     final height = MediaQuery.of(context).size.height * 1;
     return SafeArea(
       child: Scaffold(
@@ -71,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: height * .1),
             RoundButton(
               title: "Login",
+              loading: authViewModel.loading,
               onPress: () {
                 if (_emailController.text.isEmpty) {
                   Utils.flushBarErrorMessage("Please enter email", context);
@@ -80,10 +84,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   Utils.flushBarErrorMessage(
                       "Please enter 6 digit password", context);
                 } else {
+                  Map data = {
+                    'email': _emailController.text.toString(),
+                    'password': _passwordController.text.toString()
+                  };
+                  authViewModel.loginApi(data, context);
                   print("api hit");
                 }
               },
-            )
+            ),
           ],
         ),
       ),
